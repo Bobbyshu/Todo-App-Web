@@ -1,12 +1,17 @@
 import { useState } from 'react'
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
 import './TodoApp.css'
 
 export default function TodoApp() {
   return (
     <div className="TodoApp">
-      Todo Management Application
-      <LoginComponent />
-      {/* <WelcomeComponent /> */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LoginComponent />}></Route>
+          <Route path="/login" element={<LoginComponent />}></Route>
+          <Route path="/welcome" element={<WelcomeComponent />}></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   )
 }
@@ -14,6 +19,9 @@ export default function TodoApp() {
 function LoginComponent() {
   const [username, setUsername] = useState('Bobbyshu')
   const [password, setPassword] = useState('')
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+  const [showErrorMessage, setShowErrorMessage] = useState(false)
+  const navigate = useNavigate()
 
   function handleUsernameChange(event) {
     setUsername(event.target.value)
@@ -23,12 +31,19 @@ function LoginComponent() {
     setPassword(event.target.value)
   }
 
+  // check login
   function handleSubmit() {}
 
   return (
     <div className="Login">
-      <div className="success">Authenticated successfully</div>
-      <div className="errorMessage">Authenticated failed</div>
+      {showSuccessMessage && (
+        <div className="success">Authenticated successfully!</div>
+      )}
+      {showErrorMessage && (
+        <div className="errorMessage">
+          Authenticated failed, Please check your credentials.
+        </div>
+      )}
       <div className="LoginForm">
         <div>
           <label>Username</label>
