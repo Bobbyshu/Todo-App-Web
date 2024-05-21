@@ -6,5 +6,5 @@ const apiClient = axios.create(
   }
 )
 
-export const retrieveHelloWorld
-  = () => apiClient.get('/hello-world')
+export const retrieveAllTodosForUsername
+  = (username) => apiClient.get(`/users/${username}/todos`)
