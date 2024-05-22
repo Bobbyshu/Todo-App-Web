@@ -22,12 +22,6 @@ export default function ListTodosComponent() {
   const [todos, setTodos] = useState([])
   const [message, setMessage] = useState(null)
 
-  // const todos = [
-  // { id: 1, description: 'Back end', done: false, targetDate: targetDate },
-  // { id: 2, description: 'Front end', done: false, targetDate: targetDate },
-  // { id: 3, description: 'Full stack', done: false, targetDate: targetDate },
-  // ]
-
   useEffect(() => {
     refreshTodos()
   }, [])
@@ -51,6 +45,10 @@ export default function ListTodosComponent() {
 
   function updateTodo(id) {
     navigate(`/todo/${id}`)
+  }
+
+  function addNewTodo() {
+    navigate(`/todo/-1`)
   }
 
   return (
@@ -92,6 +90,9 @@ export default function ListTodosComponent() {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="btn btn-success m-5" onClick={addNewTodo}>
+        Add New Todo
       </div>
     </div>
   )
