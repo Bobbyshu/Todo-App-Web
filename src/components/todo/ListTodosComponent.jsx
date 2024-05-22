@@ -3,9 +3,13 @@ import {
   retrieveAllTodosForUsernameApi,
   deleteTodoApi,
 } from './api/TodoApiService copy'
+import { useAuth } from './security/AuthContext'
 
 export default function ListTodosComponent() {
   const today = new Date()
+  const authContext = useAuth()
+  const username = authContext.username
+
   const targetDate = new Date(
     today.getFullYear() + 12,
     today.getMonth(),
@@ -26,7 +30,7 @@ export default function ListTodosComponent() {
   }, [])
 
   function refreshTodos() {
-    retrieveAllTodosForUsernameApi('Bobbyshu')
+    retrieveAllTodosForUsernameApi(username)
       .then((response) => {
         setTodos(response.data)
       })
@@ -34,7 +38,7 @@ export default function ListTodosComponent() {
   }
 
   function deleteTodo(id) {
-    deleteTodoApi('Bobbyshu', id)
+    deleteTodoApi(username, id)
       .then(() => {
         setMessage(`Delete of todo with ${id} successful!`)
         refreshTodos()
